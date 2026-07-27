@@ -86,7 +86,27 @@ notebooks that execute and finish.
 
 ---
 
-## §4 — Caveats
+## §4 — Tooling & running Python
+
+- Interpreter: install a current Python via Homebrew (`brew install python`) rather than macOS's
+  bundled `/usr/bin/python3` (old, OS-owned). Brew installs to `/opt/homebrew/bin/python3` and puts its
+  `bin` first on `PATH`, shadowing the system one.
+- `python3` vs `python`: use `python3` / `pip3` outside an environment (bare `python` may be absent or
+  point at Python 2). Inside an active virtual environment, bare `python` / `pip` map to that env.
+- REPL: `python3` opens the interactive `>>>` prompt (Read–Eval–Print Loop) and auto-prints each
+  expression; `exit()` or Ctrl-D to leave. A `.py` file must call `print()` explicitly.
+- Run a file: `python3 file.py` — executes top to bottom and exits (no ambient server).
+- Package management (npm → Python): `pip` = installer, PyPI = registry, `requirements.txt` /
+  `pyproject.toml` = declared deps, `.venv/` = installed packages (per-project, git-ignored).
+- Virtual environment: `python3 -m venv .venv` → `source .venv/bin/activate` (prompt shows `(.venv)`),
+  `deactivate` to exit. Unlike Node's automatic `node_modules`, Python installs globally unless a venv
+  is active.
+- Tracebacks: read bottom-up — the last line is the error type + message (the answer), the line above
+  is where (file + line), the middle frames are the call path. Execution stops at the first unhandled error.
+
+---
+
+## §5 — Caveats
 
 - Indentation defines the block — 4 spaces, consistent. A colon `:` opens every block
   (`if`/`for`/`def`/`class`). Mixed tabs/spaces raise `IndentationError`.
@@ -97,3 +117,5 @@ notebooks that execute and finish.
 - `except`, not `catch`; match the exception type rather than catching everything.
 - Type hints are not enforced at runtime — Pydantic or mypy performs validation.
 - Read tracebacks bottom-up; the last line is the actual error and its type.
+- `/` is float division (`10 / 3 → 3.33…`); `//` is floor division (`10 // 3 → 3`). `*` repeats
+  strings/lists; `**` is exponent and raises `TypeError` on strings.
