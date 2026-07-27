@@ -106,7 +106,20 @@ notebooks that execute and finish.
 
 ---
 
-## §5 — Caveats
+## §5 — Control flow, loops & operators
+
+- Conditionals: `if` / `elif` / `else`, each header ending in `:` with an indented block. `elif` is one word.
+- Logical operators are words: `and` / `or` / `not` (not `&&` / `||` / `!`); comparisons (`==`, `!=`, `<`, `>=`) match JS.
+- `if/elif/else` is first-match-wins — the first true branch runs and the rest are skipped, so order the
+  most-specific condition first (the FizzBuzz trap: test "divisible by both" before the singles).
+- No C-style `for`: iterate over things — `for x in seq:`, `for i in range(n):` (end-exclusive),
+  `for ch in "hi":`. Use `for i, x in enumerate(seq):` when the index is needed.
+- `while cond:` as usual. Compound assignment `+=` / `-=` exists; there is no `++` / `--`.
+- Truthiness matches JS: `0`, `""`, `[]`, `{}`, `None` are falsy.
+
+---
+
+## Caveats
 
 - Indentation defines the block — 4 spaces, consistent. A colon `:` opens every block
   (`if`/`for`/`def`/`class`). Mixed tabs/spaces raise `IndentationError`.
@@ -119,3 +132,7 @@ notebooks that execute and finish.
 - Read tracebacks bottom-up; the last line is the actual error and its type.
 - `/` is float division (`10 / 3 → 3.33…`); `//` is floor division (`10 // 3 → 3`). `*` repeats
   strings/lists; `**` is exponent and raises `TypeError` on strings.
+- A block header ending in `:` requires an indented body on the next line, or `IndentationError`.
+- `if/elif/else` is first-match-wins — order the most-specific condition first.
+- No `++` / `--`; use `+= 1` / `-= 1`. `{ }` with contents is a set/dict, not grouping.
+- `range(n)` is end-exclusive (`range(1, 21)` → 1..20).
