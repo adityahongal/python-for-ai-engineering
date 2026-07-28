@@ -119,6 +119,23 @@ notebooks that execute and finish.
 
 ---
 
+## §6 — Collections & comprehensions
+
+- Four types: `list` `[...]` (ordered, mutable), `dict` `{"k": v}` (key→value), `tuple` `(a, b)`
+  (immutable), `set` `{a, b}` (unordered, unique). Empty `{}` is a dict; empty set is `set()`.
+- Lists: `xs[0]`, negative index `xs[-1]` (from the end), `len(xs)` (function), `x in xs` membership,
+  slicing `xs[start:end]` (end-exclusive), `xs[::-1]` reverse. `b = a` aliases; copy with `xs[:]` / `.copy()`.
+- Dicts: `d["k"]` raises `KeyError` if absent; `d.get("k", default)` is the safe read. `"k" in d` tests
+  keys. Loop with `.items()` (key+value), `.keys()`, `.values()`.
+- Comprehensions: `[expr for x in seq if cond]` replaces `map`/`filter`; dict form `{k: v for ...}`.
+  `zip(a, b)` pairs two lists, unpacked with two loop variables. The comprehension IS the loop — do not
+  wrap it in an outer `for`.
+- Sets: `set(xs)` dedupes; membership is O(1) vs O(n) for a list; unordered, no indexing.
+- Set math (operator/method): union `|`, intersection `&`, difference `-`, symmetric difference `^`;
+  subset/superset `<=` / `>=`. Handy for "shared" (`a & b`) and "what's new" (`incoming - seen`).
+
+---
+
 ## Caveats
 
 - Indentation defines the block — 4 spaces, consistent. A colon `:` opens every block
@@ -136,3 +153,5 @@ notebooks that execute and finish.
 - `if/elif/else` is first-match-wins — order the most-specific condition first.
 - No `++` / `--`; use `+= 1` / `-= 1`. `{ }` with contents is a set/dict, not grouping.
 - `range(n)` is end-exclusive (`range(1, 21)` → 1..20).
+- A comprehension already loops — wrapping it in an outer `for` rebuilds the whole result each pass.
+- Empty `{}` is a dict, not a set; use `set()`. Negative indices count from the end (`xs[-1]` = last).
