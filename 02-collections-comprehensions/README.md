@@ -18,6 +18,10 @@ Lists, dicts, tuples, sets, and comprehensions — the backbone of most data and
 - `d["k"]` raises `KeyError` if absent; `d.get("k", default)` is the safe read. `"k" in d` checks keys.
 - Loop with `.items()` (key + value), `.keys()`, `.values()`.
 
+**Iterating**
+- Prefer `for i, item in enumerate(seq):` over `range(len(seq))`; `enumerate(seq, start=1)` sets the
+  first index. Use `for k, v in d.items():` for dict pairs.
+
 **Comprehensions**
 - `[expr for x in seq if cond]` replaces `map`/`filter` in one construct.
 - Dict comprehension: `{k: v for ...}`. `zip(a, b)` pairs two lists; unpack with two loop variables.

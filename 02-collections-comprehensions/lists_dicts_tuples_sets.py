@@ -321,3 +321,20 @@ incoming = {"b@x.com", "c@x.com", "d@x.com"}
 names = ["a", "b"]
 ages = [25, 30]
 zip(names, ages)  # → pairs: ("a",25), ("b",30)  — perfect for dict comprehensions
+
+# enumerate() -
+# non pythonic way -
+users = ["Aditya", "Rahul", "Priya"]
+
+for i in range(len(users)):
+    print(i, users[i])
+
+#pythonic way is enumerate() → yields (index, item) pairs each loop
+for index,user in enumerate(users):
+    print(index,user)
+
+foods = ["Pizza", "Burger", "Pasta"]
+
+# start=1 sets the first index (default is 0) — handy for numbered lists
+for num, food in enumerate(foods, start=1):
+    print(f"{num}. {food}")

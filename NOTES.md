@@ -130,6 +130,8 @@ notebooks that execute and finish.
 - Comprehensions: `[expr for x in seq if cond]` replaces `map`/`filter`; dict form `{k: v for ...}`.
   `zip(a, b)` pairs two lists, unpacked with two loop variables. The comprehension IS the loop — do not
   wrap it in an outer `for`.
+- Iterating with an index: use `for i, item in enumerate(seq):` (not `range(len(seq))`); `enumerate(seq,
+  start=1)` sets the first index. `for k, v in d.items():` for dict pairs.
 - Sets: `set(xs)` dedupes; membership is O(1) vs O(n) for a list; unordered, no indexing.
 - Set math (operator/method): union `|`, intersection `&`, difference `-`, symmetric difference `^`;
   subset/superset `<=` / `>=`. Handy for "shared" (`a & b`) and "what's new" (`incoming - seen`).
