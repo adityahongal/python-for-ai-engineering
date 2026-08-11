@@ -248,7 +248,17 @@ user2("RRRR", age=26)          # here positional arg is "RRRR", keyword arg is "
 
 # Positional Args vs Keyword Args
 
-# def user3(name, age):
-#     print(name, age)
+def user3(name, age, city):
+    print(name, age, city)
 
-# user3(name="Aditya", 26) 
+# Positional → matched by ORDER (values map left-to-right: name, age, city)
+user3("Aditya", 26, "Pune")
+
+# Keyword → matched by NAME, so ORDER doesn't matter
+user3(city="Pune", name="Aditya", age=26)
+
+# Mixed → positional FIRST, then keyword ("Aditya" is positional; age & city by name)
+user3("Aditya", city="Pune", age=26)
+
+# ❌ Keyword BEFORE positional → SyntaxError: positional argument follows keyword argument
+# user3(name="Aditya", 26, "Pune")
