@@ -13,12 +13,11 @@ print(evens)
 # Print both — notice one would crash with [] and the other doesn't.
 user = {"name": "XYZ", "age": 24}
 
-print(user["name"]) 
-# print(user.get["name"]) 
-# print(user.get["email"])
+print(user["name"])                # [] read → XYZ  (would raise KeyError if the key were missing)
+# note: .get is a METHOD → use parentheses: user.get("name"), never brackets user.get["name"]
 
-print(user.get("name"))
-print(user.get("email"))
+print(user.get("name"))            # safe read → XYZ
+print(user.get("email"))           # missing key → None  (or give a fallback: user.get("email", "N/A"))
 
 # 4. Loop a dict: print each key/value of user using .items().
 

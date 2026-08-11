@@ -5,5 +5,5 @@ the line above is where it happened. Python stops at the first unhandled error.
 """
 
 print("about to break")
-# result = undefined_variable + 1   # NameError: this name is never defined(uncomment to check this later)
+# result = undefined_variable + 1   # NameError: this name is never defined (uncomment to check later)
 print("you will never see this line")

@@ -16,7 +16,7 @@ fruits = ["apple", "banana", "orange", "jackfruit", "lemon"]
 
 # Negative indexing - unique in python - gives last item in the list
 # print(fruits[-1])
-# print(fruits[-3])               #gives first item parsing from reverse
+# print(fruits[-3])               #gives the 3rd item from the END → "orange"
 
 # Instead of slicing python has
 # print(fruits[1:3])                  #start is included,ending is excluded
@@ -110,7 +110,7 @@ a.extend(b)
 # Tuples - Tuple is like a list but immutable.
 
 # point = (10,20)
-# point[0] = 100        #cannot do throws TypeError - does not support object assignment
+# point[0] = 100        #TypeError: 'tuple' object does not support item assignment (tuples are immutable)
 
 # Why use tuple? --> Because values should never change.
 # Examples
@@ -237,7 +237,7 @@ user = {"name": "XYZ", "age": 24}
 
 # Sets
 # A set is an unordered collection of unique elements.
-# set ← no JS equivalent (unordered, no duplicates)
+# JS has new Set(), but no literal set syntax; Python's {} set literal is unordered with no duplicates
 numbers = {1, 2, 3, 3, 4, 5, 5}
 print(numbers)  # duplicates 3,5 are automatically removed
 
@@ -249,7 +249,7 @@ print(numbers)  # duplicates 3,5 are automatically removed
 # fruits = set(["apple", "banana", "orange"])
 
 # Creating Empty Set
-# empty = {}    --> Error : this creates dict not set
+# empty = {}    --> NOT an error — this silently creates a DICT, not a set (empty {} is always a dict)
 # empty = set()      --> correct method
 # print(type(empty))
 
