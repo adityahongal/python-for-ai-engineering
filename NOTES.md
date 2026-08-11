@@ -138,6 +138,23 @@ notebooks that execute and finish.
 
 ---
 
+## §7 — Functions
+
+- `def name(params):` + `return`; no `return` → returns `None` (there is no `undefined`).
+- First-class objects: pass them as callbacks (pass `fn`, not `fn()`); `lambda x: expr` is the
+  arrow-function form. Multiple return values pack into a tuple.
+- Default args `def f(a, b=2):`; keyword args at the call `f(a, b=3)` (order-independent; positional
+  before keyword). `*args` → tuple of extra positionals, `**kwargs` → dict of extra keywords; signature
+  order is params → `*args` → `**kwargs`.
+- Packing vs unpacking: `*args`/`**kwargs` gather in the definition; `*seq` / `**dict` spread at the call
+  (`add(*[1,2,3])`, `f(**config)`).
+- Scope is LEGB (Local → Enclosing → Global → Built-in): reading outer names is automatic; reassigning
+  needs `global` / `nonlocal`.
+- Type hints (`name: str -> int`) and docstrings (`"""..."""` as the first statement, readable via
+  `.__doc__` / `help()`) document functions; hints are not enforced at runtime (Pydantic/mypy do that).
+
+---
+
 ## Caveats
 
 - Indentation defines the block — 4 spaces, consistent. A colon `:` opens every block
@@ -157,3 +174,6 @@ notebooks that execute and finish.
 - `range(n)` is end-exclusive (`range(1, 21)` → 1..20).
 - A comprehension already loops — wrapping it in an outer `for` rebuilds the whole result each pass.
 - Empty `{}` is a dict, not a set; use `set()`. Negative indices count from the end (`xs[-1]` = last).
+- Mutable default arguments (`def f(x=[])`) are created once and shared across calls — use `None`, build inside.
+- Reassigning a global/enclosing variable inside a function needs `global`/`nonlocal` (else `UnboundLocalError`).
+- Pass a callback as `fn`, not `fn()`; positional args cannot follow keyword args in a call.

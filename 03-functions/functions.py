@@ -1,4 +1,4 @@
-"""03 — Functions: definitions, arguments, return values, callbacks, and lambdas."""
+"""03 — Functions: definitions, arguments (default/keyword/*args/**kwargs), returns, callbacks, lambdas, scope."""
 
 # Functions in python
 # def functionName():
@@ -107,12 +107,12 @@ def greet(name):                                    #name is a parameter, "xyz" 
 #90                     ->inside function it will be 90 but value will not be returned
 #none                   -> so it will come as none
 
-def add1(a,b):
-    print(a+b)              
+# def add1(a,b):
+#     print(a+b)              
     
-result1 = add1(30,60)
+# result1 = add1(30,60)
 
-print(result1)
+# print(result1)
 
 #using return() the value is stored
 # 10 + 20
@@ -127,53 +127,53 @@ print(result1)
 # Stored in variable - The caller receives it.
 #output will be 90 only
 
-def add2(a,b):
-    return a+b
+# def add2(a,b):
+#     return a+b
 
-result2 = add2(30,60)
-print(result2)
+# result2 = add2(30,60)
+# print(result2)
 
-# with print() we cant do x = add(10, 20) + 5
-# cz it returns none and becomes x= none + 5 ---> Error
+# # with print() we cant do x = add(10, 20) + 5
+# # cz it returns none and becomes x= none + 5 ---> Error
 
-# with return() we can do x = add(10, 20) + 5
-# it becomes x = 30 + 5 ====> o/p. 35
+# # with return() we can do x = add(10, 20) + 5
+# # it becomes x = 30 + 5 ====> o/p. 35
 
-x = add2(10,20) + 5
-print(x)
+# x = add2(10,20) + 5
+# print(x)
 
-# Functions Without return
+# # Functions Without return
 
-# def greet():
-#    print("Hello")
-#  there is no return
+# # def greet():
+# #    print("Hello")
+# #  there is no return
 
-# Python effectively treats it as:
-# def greet():
+# # Python effectively treats it as:
+# # def greet():
+# #     print("Hello")
+# #     return None
+
+# # Because every Python function returns something.
+# # If you don't specify a return value,
+# # Python automatically returns:   None
+
+# def greet3():
 #     print("Hello")
-#     return None
 
-# Because every Python function returns something.
-# If you don't specify a return value,
-# Python automatically returns:   None
+# x1 = greet3()
 
-def greet3():
-    print("Hello")
+# print(x1)                       #o/p = Hello and None because x = None
 
-x1 = greet3()
+# # Multiple Returns
 
-print(x1)                       #o/p = Hello and None because x = None
+# # A function can return multiple values.
+# # Python automatically creates a tuple.
 
-# Multiple Returns
+# def get_user():
+#     return "XYZ",26,"xyz@x.com"
 
-# A function can return multiple values.
-# Python automatically creates a tuple.
-
-def get_user():
-    return "XYZ",26,"xyz@x.com"
-
-data = get_user()
-print(data)
+# data = get_user()
+# print(data)
 
 # Callbacks
 
@@ -186,7 +186,7 @@ def greet4(name):
 def run_twice(fn, value):    # fn is a CALLBACK — a function received as an argument
       print(fn(value))
   
-run_twice(greet4, "Sam")      # pass greet WITHOUT () — the function itself, not its 
+# run_twice(greet4, "Sam")      # pass greet WITHOUT () — the function itself, not its 
 #   result
 #   ⚠️  Same trap as JS: pass greet (the function), not greet() (which calls it and passes
 #   the result). Like setTimeout(fn) vs setTimeout(fn())
@@ -200,11 +200,11 @@ run_twice(greet4, "Sam")      # pass greet WITHOUT () — the function itself, n
 # in python
 # Python lambda can contain only a single expression:
 # For anything more than a simple expression, Python uses a normal function:
-greet5 = lambda: print("This is an anonymous lambda function")
-greet5()
+# greet5 = lambda: print("This is an anonymous lambda function")
+# greet5()
 
-greet6 = lambda name: f"Hi {name}"
-print(greet6("XXX"))
+# greet6 = lambda name: f"Hi {name}"
+# print(greet6("XXX"))
 # note: assigning a lambda to a name works, but linters (Ruff E731) prefer a normal def for named functions
 
 # Default arguments
@@ -215,11 +215,11 @@ print(greet6("XXX"))
 # Non-default parameter first.
 # Default parameter after.
 
-def greet7(name,punct="!"):                                         # punct="!" -> If caller doesn't provide punct,use "!"
-     print(f"Hello {name}{punct}")
+# def greet7(name,punct="!"):                                         # punct="!" -> If caller doesn't provide punct,use "!"
+#      print(f"Hello {name}{punct}")
 
-greet7("AAA")
-greet7("ZZZ","??")
+# greet7("AAA")
+# greet7("ZZZ","??")
 
 # Keyword Arguments
 
@@ -235,30 +235,202 @@ greet7("ZZZ","??")
 # age = 26
 # city = "Pune"
 
-def user(name, age):
-    print(name, age)
+# def user(name, age):
+#     print(name, age)
 
-user(age=26, name="YYYY")
+# user(age=26, name="YYYY")
 
-def user2(name, age):
-    print(name, age)
+# def user2(name, age):
+#     print(name, age)
 
-user2("RRRR", age=26)          # here positional arg is "RRRR", keyword arg is "age=26"
-# Always Positional arg is considered first then keyword arg, if vice versa then error 
+# user2("RRRR", age=26)          # here positional arg is "RRRR", keyword arg is "age=26"
+# # Always Positional arg is considered first then keyword arg, if vice versa then error 
 
-# Positional Args vs Keyword Args
+# # Positional Args vs Keyword Args
 
-def user3(name, age, city):
-    print(name, age, city)
+# def user3(name, age, city):
+#     print(name, age, city)
 
-# Positional → matched by ORDER (values map left-to-right: name, age, city)
-user3("Aditya", 26, "Pune")
+# # Positional → matched by ORDER (values map left-to-right: name, age, city)
+# user3("Aditya", 26, "Pune")
 
-# Keyword → matched by NAME, so ORDER doesn't matter
-user3(city="Pune", name="Aditya", age=26)
+# # Keyword → matched by NAME, so ORDER doesn't matter
+# user3(city="Pune", name="Aditya", age=26)
 
-# Mixed → positional FIRST, then keyword ("Aditya" is positional; age & city by name)
-user3("Aditya", city="Pune", age=26)
+# # Mixed → positional FIRST, then keyword ("Aditya" is positional; age & city by name)
+# user3("Aditya", city="Pune", age=26)
 
 # ❌ Keyword BEFORE positional → SyntaxError: positional argument follows keyword argument
 # user3(name="Aditya", 26, "Pune")
+
+# *args — "any number of positional arguments"
+
+# *args (Accept Unlimited Positional Arguments)
+# Collect all extra positional arguments into a tuple.
+# Sometimes you don't know how many values will come in. *args scoops up all the extra
+# positional arguments into a tuple:
+
+def total(*args):
+    print(args)
+    return sum(args)
+
+# print(total(20,10,30,40))   
+# print(total(10))                        #creates a tuple with comma -->> (10,) <<- A tuple with a single element must have a trailing comma
+# print(total())                         # returns empty tuple and value will be zero
+
+# Mixing Normal Parameters With *args
+
+def greet8(greeting,*names):
+     print(greeting)
+     print(names)
+
+# greet8("Hello",
+#     "Aditya",
+#     "Rahul",
+#     "Priya")
+
+def show(*args):
+    print(len(args))
+
+# show(1, 2, 3, 4)
+
+# *args only works with positional arguments.
+# example --> show(
+#     "Aditya",
+#     "Python",
+#     "Node"
+# )
+
+# Python only knows: 1st value
+# 2nd value
+# 3rd value
+# it doesn't know names
+
+# Suppose we want to accept:
+# create_user(
+#     name="Aditya",
+#     age=26,
+#     city="Pune"
+# )
+
+# A tuple won't work because tuples don't store names.
+# We need something like:
+# {
+#     "name": "Aditya",
+#     "age": 26,
+#     "city": "Pune"
+# }
+
+# That's exactly why Python created: **kwargs
+
+# **kwargs — "any number of named arguments"
+
+# The ** version scoops up all the extra keyword arguments into a dict:
+# Collect keyword arguments into a dictionary
+
+def showUser(**kwargs):
+     print(kwargs)
+# showUser( name="xyzz", age=20, email="xyzz@x.com")
+
+def describe(**kwargs):
+      print(kwargs)                        # a DICT: {'name': 'Aditya', 'age': 25}
+      for key, value in kwargs.items():
+          print(f"{key}: {value}")
+
+# describe(name="Aditya", age=25, role="dev")
+
+# One rule — the order in a signature is fixed: regular params → *args → **kwargs.
+#   def f(a, b, *args, **kwargs):   # ✅ this exact order
+
+# Combining both *args & **kwargs
+
+# def demo(*args, **kwargs):
+#     print(args)
+#     print(kwargs)
+# demo(
+#     10,
+#     20,
+#     name="Aditya",
+#     city="Bangalore"
+# )
+
+# Packing vs Unpacking
+
+# Packing
+
+# Many values
+#       ↓
+# One container
+
+# def show(*args):
+#     print(args)
+# show(10, 20, 30)
+# python packs (10, 20, 30) into args
+
+# Unpacking
+
+# One container
+#       ↓
+# Many values
+
+nums = [10,20,30]
+print(*nums)                  # o/p --> 10 20 30, unpacked - Python expands the list.
+
+names = ["Aditya", "Rahul", "Priya"]
+print(*names)
+
+# Unpacking Into Function Calls
+
+def add(a,b,c):
+    return a+b+c
+add(10,20,30)       #works normally
+
+# using unpacking
+nums2 = [10,20,30]
+print(add(*nums2))                  # python converts add(*nums2) into add(10, 20, 30)
+
+# Dictionary Unpacking
+# **kwargs packs keyword arguments into a dictionary.
+
+config = {
+    "name": "Aditya",
+    "age": 26
+}
+def userNew(name, age):
+    print(name, age)
+userNew(**config)                       # **config unpacks the dictionary and passes its values as keyword arguments:
+
+# python expands into:
+# userNew(
+#     name="Aditya",
+#     age=26
+# )
+
+# The Famous Mutable Default Argument Bug ⭐⭐⭐⭐⭐
+
+# def add_item(item, basket=[]):     # ⚠️  empty list as default
+#       basket.append(item)
+#       return basket
+      
+# print(add_item("apple"))    # ['apple']
+# print(add_item("banana"))   # ← what prints here?
+# print(add_item("Guava"))   # ← what prints here?
+# # You'd expect ['banana']. It actually prints ['apple', 'banana'] — the apple is still there!
+
+# Because the list is created once when the function is defined, so all calls share the same list.
+# Why: the default [] is created once, at the moment the function is defined — not fresh each call. 
+# So every call that uses the default shares the same list, and it keeps accumulating. 
+# (In JS, function f(x=[]) gives a fresh array every call — Python does not, and this trips everyone up.)
+  
+# The fix — use None as a sentinel and make a fresh list inside:
+def add_item(item, basket=None):
+      if basket is None:
+          basket = []            # a brand-new list on every call
+      basket.append(item)
+      return basket
+
+print(add_item("apple"))    # ['apple']   — fresh list
+print(add_item("banana"))   # ['banana']  — no leftover apple (bug fixed)
+print(add_item("Guava"))    # ['Guava']   — each call starts empty
+
+# Rule of thumb: never use a mutable value ([], {}, set()) as a default argument. Use None and build it inside.
