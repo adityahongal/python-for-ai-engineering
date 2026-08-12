@@ -155,6 +155,18 @@ notebooks that execute and finish.
 
 ---
 
+## §8 — Classes & OOP
+
+- `class Name:` defines a blueprint; `Name(...)` creates an instance (no `new`). `__init__(self, ...)`
+  is the constructor (optional); `self` is `this` but the EXPLICIT first parameter of every method
+  (`obj.m()` runs as `Class.m(obj)`).
+- Instance attributes `self.x = ...` are per-object; attributes in the class body are shared by all instances.
+- Inheritance: `class Child(Parent):`; `super().__init__(...)` runs the parent constructor; redefining a
+  method overrides it.
+- Dunder methods customise behaviour — `__str__(self)` controls how the object prints.
+
+---
+
 ## Caveats
 
 - Indentation defines the block — 4 spaces, consistent. A colon `:` opens every block
@@ -177,3 +189,5 @@ notebooks that execute and finish.
 - Mutable default arguments (`def f(x=[])`) are created once and shared across calls — use `None`, build inside.
 - Reassigning a global/enclosing variable inside a function needs `global`/`nonlocal` (else `UnboundLocalError`).
 - Pass a callback as `fn`, not `fn()`; positional args cannot follow keyword args in a call.
+- Every method needs `self` first (else `TypeError`); attribute access needs the `self.` prefix (else `NameError`).
+- A mutable class attribute (`tricks = []` in the class body) is shared across all instances — put it in `__init__` as `self.tricks = []`.
