@@ -167,6 +167,28 @@ notebooks that execute and finish.
 
 ---
 
+## §9 — Type hints, Pydantic & error handling
+
+- **Type hints** (`name: str`, `-> int`, `list[str]`, `dict[str, int]`, `str | None`) document intent
+  for humans/tools but are NOT enforced at runtime — `greet(123)` with `name: str` still runs.
+- **Pydantic `BaseModel`** turns hints into runtime validation. `class User(BaseModel):` inherits the
+  machinery; creating `User(name=..., age=...)` validates the data against the annotations.
+- **Coercion:** Pydantic converts compatible data (`age="27"` → `27`) but raises `ValidationError`
+  when it can't (`age="seventy"`). It also reports EVERY failing field at once, not just the first.
+- **`ValidationError`** (`from pydantic import ValidationError`) is the exception raised on bad data;
+  `e.errors()` returns it as a structured list of dicts (type/loc/msg/input) — machine-readable, ideal
+  for feeding an LLM's mistakes back to it.
+- **`try / except / else / finally`** (JS `try/catch/finally`): `except SomeError as e:` catches;
+  `else:` runs only when `try` succeeded; `finally:` always runs. Catch the specific type, not everything.
+- **`raise ValueError("msg")`** throws your own error for business rules (e.g. withdraw > balance).
+- **`Model(**data)`** unpacks a dict into a model (validate at the edge); **`model.model_dump()`** exports
+  it back to a clean dict, **`model.model_dump_json()`** to a JSON string. Round-trip:
+  `raw dict → Model(**data) [validate] → .model_dump() [clean, typed dict]`.
+- **The GenAI bridge:** LLM text → parse → `Model(**data)` → valid object or catchable `ValidationError`.
+  This is how LangChain guarantees structured output and retries on invalid responses.
+
+---
+
 ## Caveats
 
 - Indentation defines the block — 4 spaces, consistent. A colon `:` opens every block
@@ -191,3 +213,7 @@ notebooks that execute and finish.
 - Pass a callback as `fn`, not `fn()`; positional args cannot follow keyword args in a call.
 - Every method needs `self` first (else `TypeError`); attribute access needs the `self.` prefix (else `NameError`).
 - A mutable class attribute (`tricks = []` in the class body) is shared across all instances — put it in `__init__` as `self.tricks = []`.
+- Never name a file the same as a package you import (`pydantic.py`) — it shadows the real package and imports break. On case-insensitive macOS, capitalisation is not a safe guard; use a distinct name.
+- Pydantic coerces where it can (`"27"` → `27`) but raises `ValidationError` when it can't, and lists ALL failing fields at once — not just the first.
+- `else:` runs only when `try` succeeds; `finally:` runs either way. `e.errors()` gives errors as structured data; `raise` throws your own.
+- `model_dump()` → plain dict, `model_dump_json()` → JSON string. `Model(**data)` builds a NEW object, so `data is model` is `False`.
