@@ -189,6 +189,34 @@ notebooks that execute and finish.
 
 ---
 
+## §10 — Project shape (modules, config, files, generators)
+
+- **Modules & imports:** any `.py` file is a module; `from utils import greet` imports by MODULE NAME
+  (no `./`, no `.py`). Everything top-level is importable — no `export` keyword. Python looks in the
+  script's own directory first. Importing a module RUNS its top-level code once and caches bytecode in
+  `__pycache__/` (auto-generated, git-ignored; only imported modules get cached, not the run file).
+- **`__name__ == "__main__"`:** a file's `__name__` is `"__main__"` when run directly, or its module name
+  when imported. Wrap demo/entry code in `if __name__ == "__main__":` so importing has no side effects.
+- **Context managers (`with`):** `with open(path) as f:` auto-closes the file at block end (even on error)
+  — no manual `.close()`. Same pattern for DB connections and API clients.
+- **Robust file paths:** a bare `open("x.txt")` is relative to the CWD (where you launched python), not the
+  file — breaks from other dirs or the VSCode ▶ Run button (→ `FileNotFoundError`). Use
+  `Path(__file__).parent / "x.txt"` (pathlib; `/` joins path parts) for a location-independent path.
+  Pass `encoding="utf-8"` explicitly for consistent text across machines.
+- **JSON:** `json.load(f)` / `json.dump(obj, f)` for FILES; `json.loads(s)` / `json.dumps(obj)` for STRINGS
+  (use the string forms on LLM responses). Modes: `"r"` read (default), `"w"` write (ERASES & rewrites),
+  `"a"` append, `"x"` create. `indent=4` pretty-prints for humans (cosmetic; machines parse either).
+- **Pydantic extra fields:** by default unknown fields are IGNORED/dropped — the model acts as a
+  filter/cleaner. `model_config = ConfigDict(extra="allow")` keeps them; `extra="forbid"` raises. Handy for
+  messy LLM output with more keys than the schema declares.
+- **Generators (`yield`):** a `yield` function returns a generator object and does NOT run until iterated;
+  each `next()`/loop step runs to the next `yield`, then PAUSES (remembering state). Lazy — never holds all
+  values at once, so memory stays flat. This is how LLM token streaming works.
+- **Secrets/config (`.env`):** keep secrets in `.env` (git-ignored; commit only `.env.example`);
+  `load_dotenv()` + `os.getenv("KEY")` load them. Never print full keys; never commit `.env`.
+
+---
+
 ## Caveats
 
 - Indentation defines the block — 4 spaces, consistent. A colon `:` opens every block
@@ -217,3 +245,9 @@ notebooks that execute and finish.
 - Pydantic coerces where it can (`"27"` → `27`) but raises `ValidationError` when it can't, and lists ALL failing fields at once — not just the first.
 - `else:` runs only when `try` succeeds; `finally:` runs either way. `e.errors()` gives errors as structured data; `raise` throws your own.
 - `model_dump()` → plain dict, `model_dump_json()` → JSON string. `Model(**data)` builds a NEW object, so `data is model` is `False`.
+- Importing a module runs its top-level code once — guard demo/entry code with `if __name__ == "__main__":`.
+- `open()` relative paths resolve from the CWD, not the file — use `Path(__file__).parent / name` to be location-independent.
+- `"w"` mode ERASES the whole file before writing; read and write are separate `with` blocks.
+- A generator doesn't run until iterated and yields one value at a time (lazy) — don't expect a list back.
+- Pydantic ignores extra fields by default (`extra="forbid"` to reject, `"allow"` to keep).
+- Never commit `.env` (keep it git-ignored); commit only `.env.example`. Never print full secrets.
