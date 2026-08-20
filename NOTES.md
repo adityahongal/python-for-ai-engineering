@@ -268,3 +268,13 @@ notebooks that execute and finish.
 - A generator doesn't run until iterated and yields one value at a time (lazy) — don't expect a list back.
 - Pydantic ignores extra fields by default (`extra="forbid"` to reject, `"allow"` to keep).
 - Never commit `.env` (keep it git-ignored); commit only `.env.example`. Never print full secrets.
+
+---
+
+## Appendix A — Async (concept-only, deferred)
+
+Outside the 00–07 core roadmap; see `extras/async_concept.py`. Python is sync by default, async is
+opt-in: `async def` / `await`, started with `asyncio.run(main())` (JS keeps the loop always running).
+Calling an `async def` returns a coroutine that doesn't run until awaited. `asyncio.gather(...)` overlaps
+many awaits (time ≈ slowest, not the sum) — the reason async matters for concurrent LLM/API calls. Learn
+it when that need appears; FastAPI runs sync endpoints fine, so it isn't a prerequisite.
