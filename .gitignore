@@ -17,6 +17,9 @@ __pycache__/
 .ruff_cache/
 .ipynb_checkpoints/
 
+# Generated output (recreated by running the scripts)
+profile.json
+
 # OS / editor
 .DS_Store
 .vscode/

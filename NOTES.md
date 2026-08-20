@@ -217,6 +217,23 @@ notebooks that execute and finish.
 
 ---
 
+## §11 — HTTP & APIs (the on-ramp to LLM calls)
+
+- **`httpx`** is the HTTP client (like `fetch`/`axios`). `httpx.get(url)` sends a GET; `httpx.post(url,
+  json=..., headers=...)` sends a POST. `pip install httpx`.
+- **Response:** `response.status_code` (200 ok, 404 not found, 401 auth, 500 server); `response.json()`
+  parses the JSON body into a Python dict.
+- **`response.raise_for_status()`** turns a 4xx/5xx into an exception — a bad status is NOT an error by
+  default in httpx, so call this to make `except` able to catch it (else `.json()` blows up later).
+- **Error family:** `httpx.HTTPError` is the base covering both network failures (bad domain, timeout,
+  no internet) and bad statuses (`HTTPStatusError`) — one `except` catches the whole family.
+- **The LLM connection:** a Claude/OpenAI call is the SAME shape — `httpx.post` with the prompt in the
+  JSON body and the API key in the headers → JSON response → parse → validate with Pydantic. The full
+  pipeline: `GET/POST → JSON → Model(**data) [validate] → error-handled → model_dump() → save/use`.
+- Nullable API fields (`name: null` → `None`) need `str | None` on the model, or Pydantic rejects them.
+
+---
+
 ## Caveats
 
 - Indentation defines the block — 4 spaces, consistent. A colon `:` opens every block
