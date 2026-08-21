@@ -4,7 +4,7 @@ Python reference notes, oriented toward AI / LLM engineering, from a developer w
 
 The material is framed as a transfer from JS: syntax mappings, the memory and concurrency model, a Python-vs-Node comparison, and the practical caveats that matter in day-to-day work.
 
-> Companion to [`gen-ai-learnings`](https://github.com/adityahongal/gen-ai-learnings) (LangChain / RAG / agents) and the full-stack work in [`nodejs-playground`](https://github.com/adityahongal/nodejs-playground) and [`Jobtracker-MERN`](https://github.com/adityahongal/Jobtracker-MERN).
+> Companion to [`claude-engineering`](https://github.com/adityahongal/claude-engineering) (Claude API, tool use, agents, MCP, RAG) and the full-stack work in [`nodejs-playground`](https://github.com/adityahongal/nodejs-playground) and [`Jobtracker-MERN`](https://github.com/adityahongal/Jobtracker-MERN).
 
 ## Reference notes
 
